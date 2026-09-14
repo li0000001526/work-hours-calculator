@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>工时计算器 - 加班时长计算·午休扣除 | Work Hours Calculator</title>
+  <meta name="description" content="免费在线工时计算器：输入上下班打卡时间与午休时长，一键计算当日有效工时、加班时长，自动对比 8 小时标准工时并给出调休建议。支持简中/繁中/英文，无需下载，打开即用。" />
+  <meta name="keywords" content="工时计算器,加班计算,工时计算,加班时长计算器,午休扣除,打卡工时,standard work hours,work hours calculator,overtime calculator,free online" />
+  <link rel="canonical" href="https://hwirc.li00000.xyz/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="工时计算器" />
+  <meta property="og:title" content="工时计算器 - 免费加班时长在线计算" />
+  <meta property="og:description" content="输入上下班时间与午休时长，一键计算当日有效工时、加班时长，自动对比标准工时。免费、无需下载，支持简中/繁中/英文。" />
+  <meta property="og:url" content="https://hwirc.li00000.xyz/" />
+  <meta property="og:image" content="https://hwirc.li00000.xyz/assets/hero-art.jpg" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="工时计算器 - 免费加班时长在线计算" />
+  <meta name="twitter:description" content="输入上下班时间与午休时长，一键计算当日有效工时与加班时长。免费、无需下载。" />
+  <meta name="twitter:image" content="https://hwirc.li00000.xyz/assets/hero-art.jpg" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "工时计算器 Work Hours Calculator",
+    "url": "https://hwirc.li00000.xyz/",
+    "description": "免费在线工时计算器：输入上下班打卡时间与午休时长，自动计算当日有效工时、加班时长，并对比 8 小时标准工时给出调休建议。",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires JavaScript. Works in any modern browser.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" },
+    "featureList": [
+      "上下班打卡时间输入",
+      "午休时长自动扣除",
+      "当日有效工时计算",
+      "加班时长计算（对比标准工时）",
+      "调休建议提示",
+      "完成度进度条",
+      "简体中文 / 繁体中文 / English 三语切换"
+    ],
+    "alternateName": ["work hours calculator", "overtime calculator", "加班计算器"],
+    "inLanguage": ["zh-CN", "zh-TW", "en-US"]
+  }
+  </script>
+  <style>
+    :root {
+      --ink: #172033;
+      --sub: #5f6f85;
+      --bg: #eef5ff;
+      --card: rgba(255,255,255,.94);
+      --line: #dbe6f5;
+      --blue: #2f6bff;
+      --blue2: #5b8cff;
+      --green: #14b87d;
+      --amber: #ff9f2e;
+      --red: #ff5d5d;
+      --radius: 22px;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1000px 520px at 18% 10%, #dcecff 0%, transparent 62%),
+        radial-gradient(800px 520px at 90% 12%, #fff4d8 0%, transparent 58%),
+        var(--bg);
+      display: grid;
+      place-items: center;
+      padding: 28px 16px;
+    }
+    .shell {
+      width: min(1120px, 100%);
+      background: var(--card);
+      border: 1px solid #e3ebf8;
+      box-shadow: 0 28px 70px rgba(31,65,120,.16);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .lang-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 18px;
+      background: rgba(247,251,255,.96);
+      border-bottom: 1px solid var(--line);
+    }
+    .lang-brand {
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--sub);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px;
+      border-radius: 999px;
+      background: #f1f6ff;
+      border: 1px solid #d9e6fb;
+      max-width: 320px;
+      justify-content: flex-end;
+    }
+    .lang-btn {
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--sub);
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      font-family: inherit;
+      transition: .15s;
+      white-space: nowrap;
+    }
+    .lang-btn:hover { color: var(--blue); background: rgba(255,255,255,.72); }
+    .lang-btn.active { background: #fff; color: var(--blue); border-color: #cfe0ff; box-shadow: 0 6px 14px rgba(47,107,255,.14); }
+    .hero {
+      position: relative;
+      min-height: 210px;
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      align-items: stretch;
+      background: #f7fbff;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-visual { position: relative; overflow: hidden; min-height: 210px; }
+    .hero-visual .ai-art { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-copy {
+      padding: 34px 42px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    .badge {
+      display: inline-flex;
+      width: max-content;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: #e9f1ff;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+    }
+    h1 { margin: 0; font-size: 38px; line-height: 1.05; font-weight: 800; letter-spacing: -0.02em; }
+    .hero-copy p { margin: 0; color: var(--sub); font-size: 15px; line-height: 1.6; max-width: 460px; }
+    .grid {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 24px;
+      padding: 26px 28px 34px;
+    }
+    .panel { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 20px; }
+    .panel h2 { margin: 0 0 16px; font-size: 16px; font-weight: 800; }
+    .label { display:block; font-size: 12px; font-weight: 700; color: var(--sub); margin: 0 0 6px; letter-spacing:.04em; }
+    .time-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+    input[type="time"], input[type="number"] {
+      width: 100%;
+      border: 1px solid #cfd9e8;
+      background: #f8fbff;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 15px;
+      font-family: inherit;
+      color: var(--ink);
+      outline: none;
+      transition: .18s;
+    }
+    input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(47,107,255,.15); background: #fff; }
+    .btn-row { display: flex; gap: 10px; margin-top: 4px; }
+    button {
+      flex: 1;
+      border: 0;
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      font-family: inherit;
+      transition: transform .15s, filter .15s;
+    }
+    button.primary { background: var(--blue); color: #fff; }
+    button.ghost { background: #eef4ff; color: var(--blue); }
+    button:hover { transform: translateY(-1px); filter: saturate(1.08); }
+    .hint { margin-top: 12px; font-size: 12px; color: var(--sub); line-height: 1.5; }
+    .results { display: grid; gap: 14px; }
+    .metric {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      padding: 16px;
+      border-radius: 16px;
+      background: #f8fbff;
+      border: 1px solid #e5edf8;
+    }
+    .metric .name { font-size: 12px; font-weight: 800; color: var(--sub); letter-spacing: .06em; }
+    .metric .value { font-size: 32px; font-weight: 850; line-height: 1; margin-top: 6px; }
+    .metric .note { justify-self: end; align-self: center; font-size: 12px; color: var(--sub); max-width: 170px; text-align: right; line-height: 1.45; }
+    .metric.good { background: #ecfff5; border-color: #c9f3dd; }
+    .metric.good .value { color: var(--green); }
+    .metric.warn { background: #fff6e8; border-color: #ffe1b5; }
+    .metric.warn .value { color: var(--amber); }
+    .metric.bad { background: #fff0f0; border-color: #ffd0d0; }
+    .metric.bad .value { color: var(--red); }
+    .metric.flat .value { color: var(--ink); }
+    .summary {
+      margin-top: 14px;
+      border-radius: 16px;
+      padding: 16px;
+      background: linear-gradient(135deg, #fff9e9, #eef6ff);
+      border: 1px solid #f0dcae;
+      font-size: 14px;
+      line-height: 1.65;
+      color: #4f5a70;
+    }
+    .summary strong { color: var(--ink); }
+    .progress { margin-top: 14px; background: #eef3fb; height: 14px; border-radius: 999px; overflow: hidden; }
+    .progress .fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--blue), var(--green)); transition: width .35s ease; }
+    .progress-label { display:flex; justify-content: space-between; margin-top: 7px; font-size: 11px; color: var(--sub); }
+    .faq { padding: 0 28px 30px; background: #f7fbff; border-top: 1px solid var(--line); }
+    .faq h2 { margin: 0 0 14px; font-size: 17px; font-weight: 800; color: var(--ink); }
+    .faq details { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; }
+    .faq summary { font-size: 14px; font-weight: 700; color: var(--ink); cursor: pointer; }
+    .faq p { margin: 10px 0 0; font-size: 13px; line-height: 1.7; color: var(--sub); }
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-visual { min-height: 150px; }
+      .grid { grid-template-columns: 1fr; }
+      h1 { font-size: 30px; }
+      .lang-bar { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell" role="main" aria-label="Work hours calculator">
+    <div class="lang-bar">
+      <span class="lang-brand" id="brand">WORK HOURS</span>
+      <div class="lang-switcher" role="tablist" aria-label="Language">
+        <button type="button" class="lang-btn" data-locale="zh-CN">简体中文</button>
+        <button type="button" class="lang-btn" data-locale="zh-TW">繁體中文</button>
+        <button type="button" class="lang-btn" data-locale="en-US">English</button>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="hero-visual" aria-label="hero illustration">
+        <img id="heroArt" class="ai-art" alt="工时计算器：上下班打卡工时与加班时长在线计算示意" src="assets/hero-art.jpg" onerror="this.src='placeholder-art.svg';">
+      </div>
+      <div class="hero-copy">
+        <span class="badge" id="badge">WORK HOURS</span>
+        <h1 id="title">工时计算器</h1>
+        <p id="subtitle">输入上下班时间与午休时长，自动计算当日工时、加班时长，并提示是否超过标准工时。</p>
+      </div>
+    </section>
+
+    <section class="grid">
+      <form id="calcForm" class="panel">
+        <h2 id="basic">基础信息</h2>
+        <div class="time-row">
+          <div>
+            <label class="label" for="startTime" id="startTimeLabel">上班打卡</label>
+            <input id="startTime" type="time" value="09:00" required>
+          </div>
+          <div>
+            <label class="label" for="endTime" id="endTimeLabel">下班打卡</label>
+            <input id="endTime" type="time" value="18:00" required>
+          </div>
+        </div>
+        <div class="time-row">
+          <div>
+            <label class="label" for="lunchMinutes" id="lunchLabel">午休时长（分钟）</label>
+            <input id="lunchMinutes" type="number" min="0" max="240" value="60" required>
+          </div>
+          <div>
+            <label class="label" for="standardHours" id="standardLabel">标准工时（小时/日）</label>
+            <input id="standardHours" type="number" min="0" step="0.5" value="8">
+          </div>
+        </div>
+        <div class="btn-row">
+          <button type="submit" class="primary" id="calcBtn">计算工时</button>
+          <button type="button" id="resetBtn" class="ghost">恢复默认</button>
+        </div>
+        <p class="hint" id="hint">加班时长 = 总在线时长 − 午休 − 标准工时；负数说明提前下班。</p>
+      </form>
+
+      <section class="results panel">
+        <h2 id="todayTitle">今日结果</h2>
+        <div class="metric flat">
+          <div>
+            <div class="name" id="onlineLabel">总在线时长</div>
+            <div class="value" id="onlineHours">9h 0m</div>
+          </div>
+          <div class="note" id="onlineNote">上班到下班之间的日历时间。</div>
+        </div>
+        <div class="metric good">
+          <div>
+            <div class="name" id="effectiveLabel">当日有效工时</div>
+            <div class="value" id="effectiveHours">8h 0m</div>
+          </div>
+          <div class="note" id="effectiveNote">扣除午休后的实际工作时长。</div>
+        </div>
+        <div class="metric warn">
+          <div>
+            <div class="name" id="overtimeLabel">加班 / 提前下班</div>
+            <div class="value" id="overtime">0h 0m</div>
+          </div>
+          <div class="note" id="overtimeNote">相对标准工时的差值。</div>
+        </div>
+        <div class="summary" id="summary">当前默认设置：09:00–18:00，午休 60 分钟，标准工时 8 小时。</div>
+        <div class="progress" aria-hidden="true">
+          <div id="progressFill" class="fill"></div>
+        </div>
+        <div class="progress-label">
+          <span>0h</span>
+          <span id="progressLabel">完成度（有效工时 / 标准工时）</span>
+          <span id="progressMax">8h</span>
+        </div>
+      </section>
+    </section>
+
+    <section class="faq" id="faq">
+      <h2>关于工时计算器的常见问题</h2>
+      <details>
+        <summary>工时计算器怎么计算加班时长？</summary>
+        <p>加班时长 = 总在线时长 − 午休 − 标准工时。总在线时长是上班打卡到下班打卡之间的日历时间；扣除午休后得到当日有效工时，再与标准工时（默认 8 小时/日）相比，正值即加班，负值即提前下班。</p>
+      </details>
+      <details>
+        <summary>标准工时可以自定义吗？</summary>
+        <p>可以。默认为每日 8 小时（符合中国标准工时制度），支持 0.5 小时为步进调整，996、大小周等排班都能准确计算有效工时与加班时长。</p>
+      </details>
+      <details>
+        <summary>计算结果会保存吗？支持哪些语言？</summary>
+        <p>本计算器为纯前端工具，所有数据只在浏览器本地处理，不上传服务器，打开即用。支持简体中文、繁体中文与 English 三种界面语言，移动端与桌面端均可使用。</p>
+      </details>
+    </section>
+  </main>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const form = $('calcForm');
+  const inputs = ['startTime','endTime','lunchMinutes','standardHours'];
+
+  const i18n = {
+    "zh-CN": {
+      brand: "WORK HOURS",
+      badge: "WORK HOURS",
+      title: "工时计算器",
+      subtitle: "输入上下班时间与午休时长，自动计算当日工时、加班时长，并提示是否超过标准工时。",
+      basic: "基础信息",
+      startTime: "上班打卡",
+      endTime: "下班打卡",
+      lunch: "午休时长（分钟）",
+      standard: "标准工时（小时/日）",
+      calculate: "计算工时",
+      reset: "恢复默认",
+      hint: "加班时长 = 总在线时长 − 午休 − 标准工时；负数说明提前下班。",
+      today: "今日结果",
+      online: "总在线时长",
+      onlineNote: "上班到下班之间的日历时间。",
+      effective: "当日有效工时",
+      effectiveNote: "扣除午休后的实际工作时长。",
+      overtime: "加班 / 提前下班",
+      overtimeNote: "相对标准工时的差值。",
+      overtimeHigh: "超过标准工时，建议安排调休。",
+      overtimeLow: "低于标准工时，属于提前收工。",
+      overtimeEqual: "与标准工时一致。",
+      summaryOver: "今日有效工时 <strong>{effective}</strong>，加班 <strong>{over}</strong>，完成度 <strong>{percent}%</strong>。",
+      summaryUnder: "今日有效工时 <strong>{effective}</strong>，比标准少 <strong>{under}</strong>，完成度 <strong>{percent}%</strong>。",
+      summaryDefault: "当前默认设置：09:00–18:00，午休 60 分钟，标准工时 8 小时。",
+      progressLabel: "完成度（有效工时 / 标准工时）",
+      hour: "h",
+      minute: "m"
+    },
+    "zh-TW": {
+      brand: "WORK HOURS",
+      badge: "WORK HOURS",
+      title: "工時計算器",
+      subtitle: "輸入上下班時間與午休時長，自動計算當日工時、加班時長，並提示是否超過標準工時。",
+      basic: "基礎資訊",
+      startTime: "上班打卡",
+      endTime: "下班打卡",
+      lunch: "午休時長（分鐘）",
+      standard: "標準工時（小時/日）",
+      calculate: "計算工時",
+      reset: "恢復預設",
+      hint: "加班時長 = 總在線時長 − 午休 − 標準工時；負數表示提前下班。",
+      today: "今日結果",
+      online: "總在線時長",
+      onlineNote: "上班到下班之間的日曆時間。",
+      effective: "當日有效工時",
+      effectiveNote: "扣除午休後的實際工作時長。",
+      overtime: "加班 / 提前下班",
+      overtimeNote: "相對於標準工時的差值。",
+      overtimeHigh: "超過標準工時，建議安排調休。",
+      overtimeLow: "低於標準工時，屬於提前收工。",
+      overtimeEqual: "與標準工時一致。",
+      summaryOver: "今日有效工時 <strong>{effective}</strong>，加班 <strong>{over}</strong>，完成度 <strong>{percent}%</strong>。",
+      summaryUnder: "今日有效工時 <strong>{effective}</strong>，比標準少 <strong>{under}</strong>，完成度 <strong>{percent}%</strong>。",
+      summaryDefault: "目前預設設定：09:00–18:00，午休 60 分鐘，標準工時 8 小時。",
+      progressLabel: "完成度（有效工時 / 標準工時）",
+      hour: "h",
+      minute: "m"
+    },
+    "en-US": {
+      brand: "WORK HOURS",
+      badge: "WORK HOURS",
+      title: "Work Hours Calculator",
+      subtitle: "Enter your clock-in/out times and lunch break length to calculate daily work hours and overtime.",
+      basic: "Basic Input",
+      startTime: "Clock In",
+      endTime: "Clock Out",
+      lunch: "Lunch Break (minutes)",
+      standard: "Standard Hours (per day)",
+      calculate: "Calculate",
+      reset: "Reset",
+      hint: "Overtime = total time on site - lunch break - standard hours. A negative value means early leave.",
+      today: "Today",
+      online: "Total Time On Site",
+      onlineNote: "Calendar time from clock-in to clock-out.",
+      effective: "Effective Work Hours",
+      effectiveNote: "Actual working hours after removing lunch.",
+      overtime: "Overtime / Early Leave",
+      overtimeNote: "Difference from standard work hours.",
+      overtimeHigh: "Above standard hours. Consider scheduling time off in lieu.",
+      overtimeLow: "Below standard hours. You left early.",
+      overtimeEqual: "Matches standard work hours.",
+      summaryOver: "Today's effective work hours: <strong>{effective}</strong>, overtime: <strong>{over}</strong>, completion: <strong>{percent}%</strong>.",
+      summaryUnder: "Today's effective work hours: <strong>{effective}</strong>, under standard by: <strong>{under}</strong>, completion: <strong>{percent}%</strong>.",
+      summaryDefault: "Default settings: 09:00-18:00, lunch break 60 minutes, standard 8 hours.",
+      progressLabel: "Completion (effective hours / standard hours)",
+      hour: "h",
+      minute: "m"
+    }
+  };
+
+  const toMinutes = t => {
+    const [h, m] = (t || "00:00").split(":").map(Number);
+    return (h || 0) * 60 + (m || 0);
+  };
+
+  const getLocale = () => localStorage.getItem("work-hours-locale") || "zh-CN";
+  const t = key => (i18n[getLocale()] && i18n[getLocale()][key]) || i18n["zh-CN"][key];
+
+  const fmt = min => {
+    min = Math.max(0, Math.round(min));
+    const h = Math.floor(min / 60), m = min % 60;
+    return `${h}${t("hour")} ${m}${t("minute")}`;
+  };
+
+  function applyLocale(locale) {
+    const dict = i18n[locale] || i18n["zh-CN"];
+    localStorage.setItem("work-hours-locale", locale);
+    document.documentElement.lang = locale;
+    document.title = dict.title;
+    const textIds = [
+      ["brand", dict.brand],
+      ["badge", dict.badge],
+      ["title", dict.title],
+      ["subtitle", dict.subtitle],
+      ["basic", dict.basic],
+      ["startTimeLabel", dict.startTime],
+      ["endTimeLabel", dict.endTime],
+      ["lunchLabel", dict.lunch],
+      ["standardLabel", dict.standard],
+      ["calcBtn", dict.calculate],
+      ["resetBtn", dict.reset],
+      ["hint", dict.hint],
+      ["todayTitle", dict.today],
+      ["onlineLabel", dict.online],
+      ["onlineNote", dict.onlineNote],
+      ["effectiveLabel", dict.effective],
+      ["effectiveNote", dict.effectiveNote],
+      ["overtimeLabel", dict.overtime],
+      ["overtimeNote", dict.overtimeNote],
+      ["progressLabel", dict.progressLabel]
+    ];
+    textIds.forEach(([id, value]) => {
+      const el = $(id);
+      if (el) el.textContent = value;
+    });
+    document.querySelectorAll(".lang-btn").forEach(btn => {
+      btn.classList.toggle("active", btn.dataset.locale === locale);
+      btn.setAttribute("aria-selected", String(btn.dataset.locale === locale));
+    });
+    updateSummary();
+  }
+
+  function state() {
+    const start = toMinutes($('startTime').value || "09:00");
+    const end = toMinutes($('endTime').value || "18:00");
+    const lunch = Math.max(0, Number($('lunchMinutes').value) || 0);
+    const standard = Math.max(0, (Number($('standardHours').value) || 8) * 60);
+    return { start, end, lunch, standard };
+  }
+
+  function updateSummary() {
+    const { lunch, standard } = state();
+    const defaultLunch = 60;
+    if ($('startTime').value === "09:00" && $('endTime').value === "18:00" && Number($('lunchMinutes').value) === defaultLunch && Number($('standardHours').value) === 8) {
+      $('summary').innerHTML = t("summaryDefault");
+    }
+  }
+
+  function render() {
+    const { start, end, lunch, standard } = state();
+    const raw = Math.abs(end - start);
+    const online = raw;
+    const effective = Math.max(0, online - lunch);
+    const overtime = effective - standard;
+    const dict = i18n[getLocale()] || i18n["zh-CN"];
+
+    $('onlineHours').textContent = fmt(online);
+    $('effectiveHours').textContent = fmt(effective);
+
+    const otEl = $('overtime');
+    otEl.textContent = (overtime >= 0 ? "+" : "-") + fmt(Math.abs(overtime));
+    const warnCard = otEl.closest(".metric");
+    warnCard.classList.remove("bad","warn","good");
+    warnCard.classList.add(overtime > 0 ? "bad" : overtime < 0 ? "good" : "warn");
+    $("overtimeNote").textContent = overtime > 0 ? dict.overtimeHigh : overtime < 0 ? dict.overtimeLow : dict.overtimeEqual;
+
+    const percent = standard ? Math.round(effective / standard * 100) : 0;
+    if (overtime >= 0) {
+      $('summary').innerHTML = dict.summaryOver
+        .replace("{effective}", fmt(effective))
+        .replace("{over}", fmt(overtime))
+        .replace("{percent}", percent);
+    } else {
+      $('summary').innerHTML = dict.summaryUnder
+        .replace("{effective}", fmt(effective))
+        .replace("{under}", fmt(-overtime))
+        .replace("{percent}", percent);
+    }
+
+    const max = Math.max(standard, effective, 1);
+    $('progressMax').textContent = fmt(standard || max);
+    $('progressFill').style.width = `${Math.min(100, standard ? effective / standard * 100 : 0)}%`;
+  }
+
+  form.addEventListener("submit", e => { e.preventDefault(); render(); });
+  $("resetBtn").addEventListener("click", () => {
+    $("startTime").value = "09:00";
+    $("endTime").value = "18:00";
+    $("lunchMinutes").value = "60";
+    $("standardHours").value = "8";
+    render();
+  });
+  inputs.forEach(id => $(id).addEventListener("input", render));
+  document.querySelectorAll(".lang-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      applyLocale(btn.dataset.locale);
+      render();
+    });
+  });
+
+  applyLocale(getLocale());
+  render();
+})();
+</script>
+</body>
+</html>
