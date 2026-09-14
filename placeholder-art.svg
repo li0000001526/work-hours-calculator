@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1152" height="864" viewBox="0 0 1152 864" role="img" aria-label="工
+时计算器占位插画">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1">
+      <stop offset="0" stop-color="#EAF4FF"/>
+      <stop offset="1" stop-color="#FFF7DE"/>
+    </linearGradient>
+    <linearGradient id="arc" x1="0" x2="1">
+      <stop offset="0" stop-color="#FFD24D"/>
+      <stop offset="1" stop-color="#45C4B8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1152" height="864" fill="url(#bg)"/>
+  <path d="M220 520 A360 360 0 0 1 932 520" stroke="url(#arc)" stroke-width="44" fill="none" stroke-linecap="round"/>
+  <circle cx="576" cy="480" r="230" fill="#FFFFFF" stroke="#2F6BFF" stroke-width="18"/>
+  <path d="M576 342V480L666 548" stroke="#2F6BFF" stroke-width="24" stroke-linecap="round"/>
+  <circle cx="576" cy="480" r="14" fill="#FF9F2E"/>
+  <circle cx="292" cy="620" r="48" fill="#FFFFFF" stroke="#45C4B8" stroke-width="12"/>
+  <circle cx="858" cy="620" r="48" fill="#FFFFFF" stroke="#FF9F2E" stroke-width="12"/>
+  <rect x="430" y="140" width="300" height="52" rx="26" fill="#FFFFFF" stroke="#2F6BFF" stroke-width="10"/>
+</svg>
