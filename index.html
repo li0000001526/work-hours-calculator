@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="theme-color" content="#2f6bff" />
   <title>工时计算器 - 加班时长计算·午休扣除 | Work Hours Calculator</title>
   <meta name="description" content="免费在线工时计算器：输入上下班打卡时间与午休时长，一键计算当日有效工时、加班时长，自动对比 8 小时标准工时并给出调休建议。支持简中/繁中/英文，无需下载，打开即用。" />
   <meta name="keywords" content="工时计算器,加班计算,工时计算,加班时长计算器,午休扣除,打卡工时,standard work hours,work hours calculator,overtime calculator,free online" />
@@ -232,6 +234,16 @@
     .faq details { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; }
     .faq summary { font-size: 14px; font-weight: 700; color: var(--ink); cursor: pointer; }
     .faq p { margin: 10px 0 0; font-size: 13px; line-height: 1.7; color: var(--sub); }
+    .site-footer { padding: 24px 28px 30px; background: #172033; color: #c9d4e5; }
+    .site-footer h2 { margin: 0 0 14px; font-size: 13px; font-weight: 800; color: #8fa2c0; letter-spacing: .06em; text-transform: uppercase; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 8px; }
+    .footer-links a {
+      font-size: 13px; font-weight: 700; color: #eaf1ff; text-decoration: none;
+      padding: 8px 14px; border-radius: 999px; background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12); transition: .15s;
+    }
+    .footer-links a:hover { background: rgba(47,107,255,.35); border-color: rgba(47,107,255,.6); transform: translateY(-1px); }
+    .copyright { margin: 18px 0 0; font-size: 12px; color: #6d7f9c; }
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; }
       .hero-visual { min-height: 150px; }
@@ -329,20 +341,31 @@
     </section>
 
     <section class="faq" id="faq">
-      <h2>关于工时计算器的常见问题</h2>
+      <h2 id="faqTitle">关于工时计算器的常见问题</h2>
       <details>
-        <summary>工时计算器怎么计算加班时长？</summary>
-        <p>加班时长 = 总在线时长 − 午休 − 标准工时。总在线时长是上班打卡到下班打卡之间的日历时间；扣除午休后得到当日有效工时，再与标准工时（默认 8 小时/日）相比，正值即加班，负值即提前下班。</p>
+        <summary id="faqQ1">工时计算器怎么计算加班时长？</summary>
+        <p id="faqA1">加班时长 = 总在线时长 − 午休 − 标准工时。总在线时长是上班打卡到下班打卡之间的日历时间；扣除午休后得到当日有效工时，再与标准工时（默认 8 小时/日）相比，正值即加班，负值即提前下班。</p>
       </details>
       <details>
-        <summary>标准工时可以自定义吗？</summary>
-        <p>可以。默认为每日 8 小时（符合中国标准工时制度），支持 0.5 小时为步进调整，996、大小周等排班都能准确计算有效工时与加班时长。</p>
+        <summary id="faqQ2">标准工时可以自定义吗？</summary>
+        <p id="faqA2">可以。默认为每日 8 小时（符合中国标准工时制度），支持 0.5 小时为步进调整，996、大小周等排班都能准确计算有效工时与加班时长。</p>
       </details>
       <details>
-        <summary>计算结果会保存吗？支持哪些语言？</summary>
-        <p>本计算器为纯前端工具，所有数据只在浏览器本地处理，不上传服务器，打开即用。支持简体中文、繁体中文与 English 三种界面语言，移动端与桌面端均可使用。</p>
+        <summary id="faqQ3">计算结果会保存吗？支持哪些语言？</summary>
+        <p id="faqA3">本计算器为纯前端工具，所有数据只在浏览器本地处理，不上传服务器，打开即用。支持简体中文、繁体中文与 English 三种界面语言，移动端与桌面端均可使用。</p>
       </details>
     </section>
+
+    <footer class="site-footer" id="siteFooter">
+      <h2 id="footerTitle">更多免费工具</h2>
+      <div class="footer-links">
+        <a href="https://li00000.xyz/" target="_blank" rel="noopener">在线PS：网页版图片编辑器</a>
+        <a href="https://tools.li00000.xyz/" target="_blank" rel="noopener">房贷计算器：月供还款在线计算</a>
+        <a href="https://blog.li00000.xyz/" target="_blank" rel="noopener">养老规划博客</a>
+        <a href="https://hwirc.li00000.xyz/" target="_blank" rel="noopener">工时计算器（本站）</a>
+      </div>
+      <p class="copyright" id="footerCopyright">© 2026 hwirc.li00000.xyz · 免费在线工时计算器</p>
+    </footer>
   </main>
 
 <script>
@@ -380,7 +403,20 @@
       summaryDefault: "当前默认设置：09:00–18:00，午休 60 分钟，标准工时 8 小时。",
       progressLabel: "完成度（有效工时 / 标准工时）",
       hour: "h",
-      minute: "m"
+      minute: "m",
+      faqTitle: "关于工时计算器的常见问题",
+      faqQ1: "工时计算器怎么计算加班时长？",
+      faqA1: "加班时长 = 总在线时长 − 午休 − 标准工时。总在线时长是上班打卡到下班打卡之间的日历时间；扣除午休后得到当日有效工时，再与标准工时（默认 8 小时/日）相比，正值即加班，负值即提前下班。",
+      faqQ2: "标准工时可以自定义吗？",
+      faqA2: "可以。默认为每日 8 小时（符合中国标准工时制度），支持 0.5 小时为步进调整，996、大小周等排班都能准确计算有效工时与加班时长。",
+      faqQ3: "计算结果会保存吗？支持哪些语言？",
+      faqA3: "本计算器为纯前端工具，所有数据只在浏览器本地处理，不上传服务器，打开即用。支持简体中文、繁体中文与 English 三种界面语言，移动端与桌面端均可使用。",
+      footerTitle: "更多免费工具",
+      footerLink1: "在线PS：网页版图片编辑器",
+      footerLink2: "房贷计算器：月供还款在线计算",
+      footerLink3: "养老规划博客",
+      footerLink4: "工时计算器（本站）",
+      footerCopyright: "© 2026 hwirc.li00000.xyz · 免费在线工时计算器"
     },
     "zh-TW": {
       brand: "WORK HOURS",
@@ -410,7 +446,20 @@
       summaryDefault: "目前預設設定：09:00–18:00，午休 60 分鐘，標準工時 8 小時。",
       progressLabel: "完成度（有效工時 / 標準工時）",
       hour: "h",
-      minute: "m"
+      minute: "m",
+      faqTitle: "關於工時計算器的常見問題",
+      faqQ1: "工時計算器怎麼計算加班時長？",
+      faqA1: "加班時長 = 總在線時長 − 午休 − 標準工時。總在線時長是上班打卡到下班打卡之間的日曆時間；扣除午休後得到當日有效工時，再與標準工時（預設 8 小時/日）相比，正值即加班，負值即提前下班。",
+      faqQ2: "標準工時可以自訂嗎？",
+      faqA2: "可以。預設為每日 8 小時（符合中國標準工時制度），支援 0.5 小時為步進調整，996、大小周等排班都能準確計算有效工時與加班時長。",
+      faqQ3: "計算結果會儲存嗎？支援哪些語言？",
+      faqA3: "本計算器為純前端工具，所有資料只在瀏覽器本地處理，不上傳伺服器，開啟即用。支援簡體中文、繁體中文與 English 三種介面語言，行動端與桌面端均可使用。",
+      footerTitle: "更多免費工具",
+      footerLink1: "在線PS：網頁版圖片編輯器",
+      footerLink2: "房貸計算器：月供還款在線計算",
+      footerLink3: "養老規劃部落格",
+      footerLink4: "工時計算器（本站）",
+      footerCopyright: "© 2026 hwirc.li00000.xyz · 免費在線工時計算器"
     },
     "en-US": {
       brand: "WORK HOURS",
@@ -440,7 +489,20 @@
       summaryDefault: "Default settings: 09:00-18:00, lunch break 60 minutes, standard 8 hours.",
       progressLabel: "Completion (effective hours / standard hours)",
       hour: "h",
-      minute: "m"
+      minute: "m",
+      faqTitle: "FAQ About This Work Hours Calculator",
+      faqQ1: "How does the calculator compute overtime?",
+      faqA1: "Overtime = total time on site - lunch break - standard hours. Total time on site is the calendar time between clock-in and clock-out; after removing lunch you get effective work hours, then the difference against the standard (default 8h/day) shows overtime (positive) or early leave (negative).",
+      faqQ2: "Can I customize the standard hours?",
+      faqA2: "Yes. The default is 8 hours per day (matching China's standard workday). You can adjust in 0.5-hour steps, so schedules like 996 or alternating shifts are calculated accurately.",
+      faqQ3: "Are results stored? Which languages are supported?",
+      faqA3: "This is a pure front-end tool: all data is processed locally in your browser and never uploaded to any server. It supports Simplified Chinese, Traditional Chinese and English, and works on mobile and desktop.",
+      footerTitle: "More Free Tools",
+      footerLink1: "Online PS: free image editor in browser",
+      footerLink2: "Mortgage calculator: monthly payment",
+      footerLink3: "Retirement planning blog",
+      footerLink4: "Work hours calculator (this site)",
+      footerCopyright: "© 2026 hwirc.li00000.xyz · Free online work hours calculator"
     }
   };
 
@@ -483,7 +545,20 @@
       ["effectiveNote", dict.effectiveNote],
       ["overtimeLabel", dict.overtime],
       ["overtimeNote", dict.overtimeNote],
-      ["progressLabel", dict.progressLabel]
+      ["progressLabel", dict.progressLabel],
+      ["faqTitle", dict.faqTitle],
+      ["faqQ1", dict.faqQ1],
+      ["faqA1", dict.faqA1],
+      ["faqQ2", dict.faqQ2],
+      ["faqA2", dict.faqA2],
+      ["faqQ3", dict.faqQ3],
+      ["faqA3", dict.faqA3],
+      ["footerTitle", dict.footerTitle],
+      ["footerLink1", dict.footerLink1],
+      ["footerLink2", dict.footerLink2],
+      ["footerLink3", dict.footerLink3],
+      ["footerLink4", dict.footerLink4],
+      ["footerCopyright", dict.footerCopyright]
     ];
     textIds.forEach(([id, value]) => {
       const el = $(id);
