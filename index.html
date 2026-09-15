@@ -5,26 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <meta name="theme-color" content="#2f6bff" />
-  <title>工时计算器 - 加班时长计算·午休扣除 | Work Hours Calculator</title>
-  <meta name="description" content="免费在线工时计算器：输入上下班打卡时间与午休时长，一键计算当日有效工时、加班时长，自动对比 8 小时标准工时并给出调休建议。支持简中/繁中/英文，无需下载，打开即用。" />
-  <meta name="keywords" content="工时计算器,加班计算,工时计算,加班时长计算器,午休扣除,打卡工时,standard work hours,work hours calculator,overtime calculator,free online" />
+  <title>免费工时计算器：在线加班时长计算·午休扣除 | 工时计算器</title>
+  <meta name="description" content="免费在线工时计算器（工作时间计算器）：输入上下班打卡时间与午休时长，一键计算当日有效工时、加班时长，自动对比 8 小时标准工时并给出调休建议。无需下载，打开即用，支持简中/繁中/英文。" />
+  <meta name="keywords" content="工时计算器,工作时间计算器,加班计算,加班时长计算器,工时计算,午休扣除,打卡工时,上班时数计算,免费在线工具,work hours calculator,overtime calculator,free online" />
   <link rel="canonical" href="https://hwirc.li00000.xyz/" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="工时计算器" />
-  <meta property="og:title" content="工时计算器 - 免费加班时长在线计算" />
+  <meta property="og:title" content="免费工时计算器：在线加班时长计算·午休扣除" />
   <meta property="og:description" content="输入上下班时间与午休时长，一键计算当日有效工时、加班时长，自动对比标准工时。免费、无需下载，支持简中/繁中/英文。" />
   <meta property="og:url" content="https://hwirc.li00000.xyz/" />
   <meta property="og:image" content="https://hwirc.li00000.xyz/assets/hero-art.jpg" />
   <meta property="og:locale" content="zh_CN" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="工时计算器 - 免费加班时长在线计算" />
+  <meta name="twitter:title" content="免费工时计算器：在线加班时长计算·午休扣除" />
   <meta name="twitter:description" content="输入上下班时间与午休时长，一键计算当日有效工时与加班时长。免费、无需下载。" />
   <meta name="twitter:image" content="https://hwirc.li00000.xyz/assets/hero-art.jpg" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "工时计算器 Work Hours Calculator",
+    "name": "免费工时计算器：在线加班时长计算（工作时间计算器 / 加班计算器）",
     "url": "https://hwirc.li00000.xyz/",
     "description": "免费在线工时计算器：输入上下班打卡时间与午休时长，自动计算当日有效工时、加班时长，并对比 8 小时标准工时给出调休建议。",
     "applicationCategory": "BusinessApplication",
@@ -379,6 +379,7 @@
       brand: "WORK HOURS",
       badge: "WORK HOURS",
       title: "工时计算器",
+      docTitle: "免费工时计算器：在线加班时长计算·午休扣除",
       subtitle: "输入上下班时间与午休时长，自动计算当日工时、加班时长，并提示是否超过标准工时。",
       basic: "基础信息",
       startTime: "上班打卡",
@@ -422,6 +423,7 @@
       brand: "WORK HOURS",
       badge: "WORK HOURS",
       title: "工時計算器",
+      docTitle: "免費工時計算器：線上加班時長計算·午休扣除",
       subtitle: "輸入上下班時間與午休時長，自動計算當日工時、加班時長，並提示是否超過標準工時。",
       basic: "基礎資訊",
       startTime: "上班打卡",
@@ -465,6 +467,7 @@
       brand: "WORK HOURS",
       badge: "WORK HOURS",
       title: "Work Hours Calculator",
+      docTitle: "Free Work Hours Calculator: Overtime & Lunch Deduction Online",
       subtitle: "Enter your clock-in/out times and lunch break length to calculate daily work hours and overtime.",
       basic: "Basic Input",
       startTime: "Clock In",
@@ -524,7 +527,7 @@
     const dict = i18n[locale] || i18n["zh-CN"];
     localStorage.setItem("work-hours-locale", locale);
     document.documentElement.lang = locale;
-    document.title = dict.title;
+    document.title = dict.docTitle || dict.title;
     const textIds = [
       ["brand", dict.brand],
       ["badge", dict.badge],
